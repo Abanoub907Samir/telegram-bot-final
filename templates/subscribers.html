@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المشتركين</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; line-height: 1.6; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+        .back-btn { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; display: inline-block; margin-bottom: 20px; font-weight: bold; transition: all 0.3s ease; }
+        .back-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .subscriber-card { background: white; padding: 25px; margin: 15px 0; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; border-left: 5px solid #4CAF50; }
+        .subscriber-card:hover { transform: translateX(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .subscriber-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .info-item { padding: 10px; }
+        .info-label { font-weight: bold; color: #555; margin-bottom: 5px; }
+        .info-value { color: #333; font-size: 1.1em; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #666; }
+        .empty-state i { font-size: 4em; margin-bottom: 20px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="back-btn">← العودة للوحة التحكم</a>
+            <h1 style="color: #2c3e50; margin-top: 20px;">👥 قائمة المشتركين ({{ subscribers|length }})</h1>
+            <p style="color: #666; margin-top: 10px;">جميع المستخدمين المشتركين في البوت</p>
+        </div>
+        
+        {% if subscribers %}
+            {% for sub in subscribers %}
+            <div class="subscriber-card">
+                <div class="subscriber-info">
+                    <div class="info-item">
+                        <div class="info-label">🆔 رقم المستخدم:</div>
+                        <div class="info-value">{{ sub[0] }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">👤 اسم المستخدم:</div>
+                        <div class="info-value">{{ sub[1] or 'غير متوفر' }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">📛 الاسم الأول:</div>
+                        <div class="info-value">{{ sub[2] or 'غير متوفر' }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">📛 الاسم الأخير:</div>
+                        <div class="info-value">{{ sub[3] or 'غير متوفر' }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">📅 تاريخ الانضمام:</div>
+                        <div class="info-value">{{ sub[4] }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <div style="font-size: 4em; margin-bottom: 20px;">😴</div>
+                <h2 style="color: #666; margin-bottom: 15px;">لا يوجد مشتركين حتى الآن</h2>
+                <p style="color: #888;">سيظهر المشتركون هنا بعد إرسالهم /start للبوت</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

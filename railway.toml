@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python main.py"
+
+[[services]]
+name = "telegram-bot"
+type = "web"
